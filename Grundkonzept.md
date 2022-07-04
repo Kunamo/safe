@@ -9,3 +9,5 @@ Das ist der CRUD-Pathway. Ein Bild zu dem: Grundkonzept.png
 
 Dieser Aufbau eliminiert SQL-Injections, XSS Injections muss man recherchieren.
 Die Verschlüsselung passiert im Backend mittels BCrypt.
+
+Das Grundkonzept wird überarbeitet, da per 04. Juli, Änderungen getroffen wurden. (Mehr: Reflexion 04.07.22).

@@ -21,3 +21,8 @@ Menschen drauf ankommt. Ich werde den Wechsel machen. Nächste Woche habe Ich ka
 Was heisst das Ich die Mehrheit in der zweit letzten Lektion machen muss, mit dem Ich nicht so grosse Probleme habe.
 Ich weiss das Ich es schaffen kann, solange Ich reasonable denke, und nicht ausarte.
 
+# 04.07.2022
+Ich schreibe diese Reflexion im Nachhinein (04.07.22), also kann Ich mich nicht so genau errinern.
+An was Ich mich erinnern kann: Ich habe auf Angular gewechselt und Tutorials für CRUD angeschaut.
+Aber kein wesentlicher Fortschritt im Projekt. Weshalb Ich ab jetzt eingreife und die Entscheidung in der
+Dokumentation festeleg damit Ich einfach losprogrammieren kann.
