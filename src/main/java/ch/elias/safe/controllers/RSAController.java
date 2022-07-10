@@ -13,16 +13,19 @@ public class RSAController {
     @Autowired
     RSAService rsaService;
 
+    // Always need to do that on boot
     @GetMapping("/createKeys")
     public void createPrivatePublickey() {
         rsaService.createKeys();
     }
 
+    // Only using it for debugging
     @PostMapping("/encrypt")
     public String encryptMessage(@RequestBody String plainString) {
         return rsaService.encrypt(plainString);
     }
 
+    // Only using it for debugging
     @PostMapping("/decrypt")
     public String decryptMessage(@RequestBody String encryptString) {
         return rsaService.decrypt(encryptString);

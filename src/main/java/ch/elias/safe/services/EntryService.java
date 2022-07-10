@@ -28,16 +28,18 @@ public class EntryService {
     }
 
     public List<Entry> getAllEntries() {
-        // Decrypt passwords before call.
+        // Executes SQL Statement first, THEN modifies to decrypt the data.
         for (Entry entry : entryRepository.findAllByActiveOrderByIdDesc(true)) {
             entry.setPassword(rsaService.decrypt(entry.getPassword()));
         }
+        // Sends modified (decrypted) data to EntryController.
         return entryRepository.findAllByActiveOrderByIdDesc(true);
     }
 
     public Entry updateEntry(Integer id, Entry request) {
         Entry fromDb = getEntry(id);
-        fromDb.setPassword(request.getPassword());
+        fromDb.setPassword(rsaService.encrypt(request.getPassword()));
+        //fromDb.setPassword(request.getPassword());
         fromDb.setWebsite(request.getWebsite());
         fromDb.setActive(request.isActive());
         fromDb.setUpdatedAt(LocalDateTime.now());

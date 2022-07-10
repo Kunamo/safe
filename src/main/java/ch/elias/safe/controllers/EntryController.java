@@ -29,27 +29,25 @@ public class EntryController {
 
     // TODO: Make init-call to /createKeys to create RSA keys.
 
-    // /  GET <-- This one
+    // /    GET     secured with RSA
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getAllEntries(Model model) {
-        // List of tpye Entry || Here it gets all entries, raw decrypted straight from the db.
-        // So the encoding needs to happen before THIS --> TODO
+        // Gets the decrypted entries from method in EntryService
         List<Entry> entries = entryService.getAllEntries();
         model.addAttribute("entries", entries);
         model.addAttribute("entry", new Entry());
         return "entries";
     }
 
-    // /  POST
+    // /    POST    secured with RSA
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public RedirectView createEntry(RedirectAttributes redirectAttributes, @ModelAttribute Entry entry) {
 
-        // Encrypt password
+        // Encrypt password --> Could be prettier: Putting it in EntryService
         entry.setPassword(rsaService.encrypt(entry.getPassword()));
 
         // Create Entry
         entryService.createEntry(entry);
-
 
         // Flash-Message and Redirect
         String message = "Successfully created password entry for" + " <b>" + entry.getWebsite() + " </b> ✨.";
@@ -58,18 +56,24 @@ public class EntryController {
         return redirectView;
     }
 
-    // /{id}
+    // /{id}    GET     secured with RSA
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public String getEntry(Model model, @PathVariable("id") Integer id) {
         Entry entry = entryService.getEntry(id);
+        // To show it decrypted in the edit form / view.
+        entry.setPassword(rsaService.decrypt(entry.getPassword()));
         model.addAttribute("entry", entry);
         return "edit";
     }
 
-    // /{id}
+    // /{id}    POST    secured with RSA
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
     public RedirectView updateEntry(RedirectAttributes redirectAttributes, @PathVariable("id") Integer id, @ModelAttribute Entry entry) {
+
+        // Create Entry --> encryption in EntryService
         entryService.updateEntry(id, entry);
+
+        // Flash-Message and Redirect
         String message = (entry.isActive() ? "Updated " : "Deleted ") + " Entry" + " <b>" + entry.getWebsite() + "</b> ✨.";
         RedirectView redirectView = new RedirectView("/", true);
         redirectAttributes.addFlashAttribute("entryMessage", message);
