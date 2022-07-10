@@ -6,7 +6,7 @@
             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
             name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Thymeleaf Form handling Demo</title>
+    <title>Password Safe</title>
     <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css"
           rel="stylesheet">
 </head>
@@ -42,12 +42,12 @@
     <tr th:if="${#lists.isEmpty(entries)}">
         <td class="text-center" colspan="7">No entries found. Create Entries with "Create Entry"</td>
     </tr>
-    <tr th:each="entry : ${entry}">
+    <tr th:each="entry : ${entries}">
         <td class="align-middle" th:text="${entry.id}"></td>
-        <td class="align-middle" th:text="${user.getWebsite}"></td>
+        <td class="align-middle" th:text="${entry.getWebsite}"></td>
         <td class="align-middle" th:text="${entry.getPassword}"></td>
-        <td class="align-middle" th:text="${user.createdAt}"></td>
-        <td class="align-middle" th:text="${user.updatedAt}"></td>
+        <td class="align-middle" th:text="${entry.createdAt}"></td>
+        <td class="align-middle" th:text="${entry.updatedAt}"></td>
         <td class="align-middle text-center"><a class="btn btn-secondary" th:href="'/' + ${entry.id}">✏</a></td>
     </tr>
 </table>

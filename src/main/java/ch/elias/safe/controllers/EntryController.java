@@ -2,6 +2,8 @@ package ch.elias.safe.controllers;
 
 import ch.elias.safe.domain.entities.Entry;
 import ch.elias.safe.services.EntryService;
+import ch.elias.safe.services.RSAService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,12 +18,16 @@ import java.util.List;
 @Controller
 public class EntryController {
 
+    @Autowired
     private final EntryService entryService;
+    RSAService rsaService;
 
-    public EntryController(EntryService entryService) {
+    public EntryController(EntryService entryService, RSAService encryptDecryptService) {
         this.entryService = entryService;
+        this.rsaService = encryptDecryptService;
     }
 
+    // / GET
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getAllEntries(Model model) {
         List<Entry> entries = entryService.getAllEntries();
@@ -30,15 +36,24 @@ public class EntryController {
         return "entries";
     }
 
+    // / POST
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public RedirectView createEntry(RedirectAttributes redirectAttributes, @ModelAttribute Entry entry) {
+
+        entry.setPassword(rsaService.encrypt(entry.getPassword()));
+
+        // Create Entry
         entryService.createEntry(entry);
-        String message = "Created password-entry <b>" + entry.getPassword() + " " + entry.getWebsite() + "</b> ✨.";
+
+
+        // Flash-Message and Redirect
+        String message = "Successfully created password entry for" + " <b>" + entry.getWebsite() + " </b> ✨.";
         RedirectView redirectView = new RedirectView("/", true);
         redirectAttributes.addFlashAttribute("entryMessage", message);
         return redirectView;
     }
 
+    // /{id}
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public String getEntry(Model model, @PathVariable("id") Integer id) {
         Entry entry = entryService.getEntry(id);
@@ -46,13 +61,13 @@ public class EntryController {
         return "edit";
     }
 
+    // /{id}
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
     public RedirectView updateEntry(RedirectAttributes redirectAttributes, @PathVariable("id") Integer id, @ModelAttribute Entry entry) {
         entryService.updateEntry(id, entry);
-        String message = (entry.isActive() ? "Updated " : "Deleted ") + " user <b>" + entry.getPassword() + " " + entry.getWebsite() + "</b> ✨.";
+        String message = (entry.isActive() ? "Updated " : "Deleted ") + " Entry <b>" + entry.getPassword() + " " + entry.getWebsite() + "</b> ✨.";
         RedirectView redirectView = new RedirectView("/", true);
         redirectAttributes.addFlashAttribute("entryMessage", message);
         return redirectView;
     }
-
 }

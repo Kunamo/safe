@@ -11,25 +11,12 @@ import java.util.List;
 
 @Service
 public class EntryService {
-
     private final EntryRepository entryRepository;
+    private final RSAService rsaService;
 
-    public EntryService(EntryRepository entryRepository) {
+    public EntryService(EntryRepository entryRepository, RSAService rsaService) {
         this.entryRepository = entryRepository;
-    }
-
-    @PostConstruct
-    private void init() {
-        Entry entry1 = new Entry();
-        entry1.setId(1);
-        entry1.setPassword("Elias");
-        entry1.setWebsite("asdf");
-        Entry entry2 = new Entry();
-        entry2.setId(2);
-        entry2.setPassword("blubebr");
-        entry2.setWebsite("asdf");
-        createEntry(entry1);
-        createEntry(entry2);
+        this.rsaService = new RSAService();
     }
 
     public Entry getEntry(Integer id) {
@@ -52,4 +39,20 @@ public class EntryService {
         fromDb.setUpdatedAt(LocalDateTime.now());
         return entryRepository.save(fromDb);
     }
+
+    //Put in init-data
+    @PostConstruct
+    private void init() {
+        Entry entry1 = new Entry();
+        entry1.setId(1);
+        entry1.setPassword("Elias");
+        entry1.setWebsite("asdf");
+        Entry entry2 = new Entry();
+        entry2.setId(2);
+        entry2.setPassword("blubebr");
+        entry2.setWebsite("asdf");
+        createEntry(entry1);
+        createEntry(entry2);
+    }
+
 }
