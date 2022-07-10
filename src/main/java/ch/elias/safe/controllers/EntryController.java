@@ -27,19 +27,24 @@ public class EntryController {
         this.rsaService = encryptDecryptService;
     }
 
-    // / GET
+    // TODO: Make init-call to /createKeys to create RSA keys.
+
+    // /  GET <-- This one
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getAllEntries(Model model) {
+        // List of tpye Entry || Here it gets all entries, raw decrypted straight from the db.
+        // So the encoding needs to happen before THIS --> TODO
         List<Entry> entries = entryService.getAllEntries();
         model.addAttribute("entries", entries);
         model.addAttribute("entry", new Entry());
         return "entries";
     }
 
-    // / POST
+    // /  POST
     @RequestMapping(path = "/", method = RequestMethod.POST)
     public RedirectView createEntry(RedirectAttributes redirectAttributes, @ModelAttribute Entry entry) {
 
+        // Encrypt password
         entry.setPassword(rsaService.encrypt(entry.getPassword()));
 
         // Create Entry
@@ -65,7 +70,7 @@ public class EntryController {
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
     public RedirectView updateEntry(RedirectAttributes redirectAttributes, @PathVariable("id") Integer id, @ModelAttribute Entry entry) {
         entryService.updateEntry(id, entry);
-        String message = (entry.isActive() ? "Updated " : "Deleted ") + " Entry <b>" + entry.getPassword() + " " + entry.getWebsite() + "</b> ✨.";
+        String message = (entry.isActive() ? "Updated " : "Deleted ") + " Entry" + " <b>" + entry.getWebsite() + "</b> ✨.";
         RedirectView redirectView = new RedirectView("/", true);
         redirectAttributes.addFlashAttribute("entryMessage", message);
         return redirectView;

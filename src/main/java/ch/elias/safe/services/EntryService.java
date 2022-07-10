@@ -28,6 +28,10 @@ public class EntryService {
     }
 
     public List<Entry> getAllEntries() {
+        // Decrypt passwords before call.
+        for (Entry entry : entryRepository.findAllByActiveOrderByIdDesc(true)) {
+            entry.setPassword(rsaService.decrypt(entry.getPassword()));
+        }
         return entryRepository.findAllByActiveOrderByIdDesc(true);
     }
 
@@ -43,16 +47,16 @@ public class EntryService {
     //Put in init-data
     @PostConstruct
     private void init() {
-        Entry entry1 = new Entry();
-        entry1.setId(1);
-        entry1.setPassword("Elias");
-        entry1.setWebsite("asdf");
-        Entry entry2 = new Entry();
-        entry2.setId(2);
-        entry2.setPassword("blubebr");
-        entry2.setWebsite("asdf");
-        createEntry(entry1);
-        createEntry(entry2);
+        //Entry entry1 = new Entry();
+        //entry1.setId(1);
+        //entry1.setPassword("Elias");
+        //entry1.setWebsite("asdf");
+        //Entry entry2 = new Entry();
+        //entry2.setId(2);
+        //entry2.setPassword("blubebr");
+        //entry2.setWebsite("asdf");
+        //createEntry(entry1);
+        //createEntry(entry2);
     }
 
 }

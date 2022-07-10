@@ -45,7 +45,7 @@
     <tr th:each="entry : ${entries}">
         <td class="align-middle" th:text="${entry.id}"></td>
         <td class="align-middle" th:text="${entry.getWebsite}"></td>
-        <td class="align-middle" th:text="${entry.getPassword}"></td>
+        <td class="align-middle" th:text="${entry.getPassword()}"></td>
         <td class="align-middle" th:text="${entry.createdAt}"></td>
         <td class="align-middle" th:text="${entry.updatedAt}"></td>
         <td class="align-middle text-center"><a class="btn btn-secondary" th:href="'/' + ${entry.id}">✏</a></td>
