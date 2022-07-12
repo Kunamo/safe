@@ -1,0 +1,7 @@
+// TODO: Make init-call to /createKeys to create RSA keys.
+// TODO: Secure Website Input with antiSamy library for XSS.
+// TODO: Make Exception Message for 404, not found, if requesting GET /{id} when non-active entry.
+// TODO: Save one Key in local storage of client, instead of hashmap
+
+
+

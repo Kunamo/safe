@@ -5,7 +5,6 @@ import lombok.Data;
 import org.hibernate.boot.model.relational.Sequence;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data

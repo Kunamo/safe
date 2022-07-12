@@ -47,8 +47,8 @@ public class EntryService {
     }
 
     //Put in init-data
-    @PostConstruct
-    private void init() {
+    //Poststruct
+    //private void init() {
         //Entry entry1 = new Entry();
         //entry1.setId(1);
         //entry1.setPassword("Elias");
@@ -59,6 +59,6 @@ public class EntryService {
         //entry2.setWebsite("asdf");
         //createEntry(entry1);
         //createEntry(entry2);
-    }
+    //}
 
 }

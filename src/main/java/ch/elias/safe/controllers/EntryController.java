@@ -27,8 +27,6 @@ public class EntryController {
         this.rsaService = encryptDecryptService;
     }
 
-    // TODO: Make init-call to /createKeys to create RSA keys.
-
     // /    GET     secured with RSA
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String getAllEntries(Model model) {
