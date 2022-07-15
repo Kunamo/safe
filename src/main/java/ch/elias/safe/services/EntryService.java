@@ -38,27 +38,12 @@ public class EntryService {
 
     public Entry updateEntry(Integer id, Entry request) {
         Entry fromDb = getEntry(id);
-        fromDb.setPassword(rsaService.encrypt(request.getPassword()));
-        //fromDb.setPassword(request.getPassword());
         fromDb.setWebsite(request.getWebsite());
+        fromDb.setUsername(request.getUsername());
+        fromDb.setNotes(request.getNotes());
+        fromDb.setPassword(rsaService.encrypt(request.getPassword()));
         fromDb.setActive(request.isActive());
         fromDb.setUpdatedAt(LocalDateTime.now());
         return entryRepository.save(fromDb);
     }
-
-    //Put in init-data
-    //Poststruct
-    //private void init() {
-        //Entry entry1 = new Entry();
-        //entry1.setId(1);
-        //entry1.setPassword("Elias");
-        //entry1.setWebsite("asdf");
-        //Entry entry2 = new Entry();
-        //entry2.setId(2);
-        //entry2.setPassword("blubebr");
-        //entry2.setWebsite("asdf");
-        //createEntry(entry1);
-        //createEntry(entry2);
-    //}
-
 }

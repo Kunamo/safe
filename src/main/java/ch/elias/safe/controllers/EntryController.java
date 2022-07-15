@@ -48,7 +48,7 @@ public class EntryController {
         entryService.createEntry(entry);
 
         // Flash-Message and Redirect
-        String message = "Successfully created password entry for" + " <b>" + entry.getWebsite() + " </b> ✨.";
+        String message = "Successfully created password entry with username: " + " <b>" + entry.getUsername() + " </b>" + " for: <b>" + entry.getWebsite() + " </b> ✨.";
         RedirectView redirectView = new RedirectView("/", true);
         redirectAttributes.addFlashAttribute("entryMessage", message);
         return redirectView;
@@ -71,8 +71,8 @@ public class EntryController {
         // Create Entry --> encryption in EntryService
         entryService.updateEntry(id, entry);
 
-        // Flash-Message and Redirect
-        String message = (entry.isActive() ? "Updated " : "Deleted ") + " Entry" + " <b>" + entry.getWebsite() + "</b> ✨.";
+        // Flash-Message and Redirect //"Successfully created password entry with username: " + " <b>" + entry.getUsername() + " </b>" + " for: <b>" + entry.getWebsite() + " </b> ✨.";
+        String message = (entry.isActive() ? "Edited " : "Deleted ") + " password entry with username: " + " <b>" + entry.getUsername() + " </b>" + " for: <b>" + entry.getWebsite() + " </b> ✨.";
         RedirectView redirectView = new RedirectView("/", true);
         redirectAttributes.addFlashAttribute("entryMessage", message);
         return redirectView;

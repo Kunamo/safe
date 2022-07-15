@@ -11,16 +11,33 @@
           rel="stylesheet">
 </head>
 <body class="container">
+<h1 class="display-3">Password Safe<small class="text-muted">  183, Elias Ben Jurkeit</small></h1>
 <form class="col card p-3 my-5" method="post" th:action="'/'+${entry.id}" th:object="${entry}">
+    <!-- Website -->
     <div class="form-group">
         <label for="website">Website</label>
-        <input class="form-control" id="website" placeholder="Enter Website" required
+        <input class="form-control" id="website" placeholder="e.g. youtube.com" required
                th:field="*{website}"
                type="text"/>
     </div>
+    <!-- Username -->
     <div class="form-group">
-        <label for="password">Last Name</label>
-        <input class="form-control" id="password" placeholder="Enter Password" required
+        <label for="username">Username</label>
+        <input class="form-control" id="username" required
+               th:field="*{username}"
+               type="text"/>
+    </div>
+    <!-- Notes -->
+    <div class="form-group">
+        <label for="notes">Notes</label>
+        <input class="form-control" id="notes" placeholder="e.g. Business Account" required
+               th:field="*{notes}"
+               type="text"/>
+    </div>
+    <!-- Password -->
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" id="password" required
                th:field="*{password}"
                type="text"/>
     </div>

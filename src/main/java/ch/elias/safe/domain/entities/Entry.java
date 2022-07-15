@@ -15,11 +15,12 @@ public class Entry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String website;
-    // Needed to store long encoded string in database
+    private String username; // NEW
+    private String notes; // NEW
+    // Needed to store encoded password in DB, (very long due to encryption)
     @Column(length=1000)
     private String password;
     private boolean active = true;
     private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt = LocalDateTime.now();
-
 }
